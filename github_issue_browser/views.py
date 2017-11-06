@@ -11,6 +11,4 @@ class SendLink(web.View):
     @aiohttp_jinja2.template('get_info.html')
     async def post(self):
         data = await self.request.post()
-        for smth in data:
-            print(smth)
-        print('data:', data)
+        return {'github_link': data.get('github_repo')}
