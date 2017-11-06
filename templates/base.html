@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ app.router.static.url(filename='style.css') }}">
+</head>
+<body>
+
+<section class="hero is-primary is-medium">
+
+    <div class="hero-head">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            GITHUB ISSUES
+          </a>
+          <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+          <!--TODO activate burger menu-->
+        <div id="navbarMenuHeroA" class="navbar-menu">
+          <div class="navbar-end">
+            <span class="navbar-item">
+              <a class="button is-primary is-inverted" href="https://github.com/ripiuk">
+                <span class="icon">
+                  <i class="fa fa-github"></i>
+                </span>
+                <span>Download</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        GitHub issue browser
+      </h1>
+      <h2 class="subtitle">
+        Дефолтний Льоха
+      </h2>
+    </div>
+  </div>
+
+    <div class="hero-foot">
+    <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
+        <div class="container">
+  <ul>
+    <li class="{% block li_choose_repo%}{%endblock%}"><a href="/">Choosing a repository</a></li>
+    <li class="{% block li_results%}{%endblock%}"><a href="#">Results</a></li>
+  </ul>
+        </div>
+</nav>
+    </div>
+</section>
+
+{% block body %}
+{% endblock %}
+
+</body>
+</html>
