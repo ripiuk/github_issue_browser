@@ -4,7 +4,7 @@ install_python_repo:
 	sudo add-apt-repository -y ppa:fkrull/deadsnakes
 	sudo apt-get update
 
-install:
+install_python:
 	sudo apt-get install -y $(PYTHON) $(PYTHON)-dev $(PYTHON)-venv cython
 	sudo apt-get install -y build-essential libssl-dev libffi-dev openssl
 
@@ -16,4 +16,4 @@ venv_init:
 		pip install --upgrade --requirement requirements.txt"
 
 runserver:
-	./runserver.py
+	python runserver.py

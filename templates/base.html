@@ -29,7 +29,7 @@
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-end">
             <span class="navbar-item">
-              <a class="button is-primary is-inverted" href="https://github.com/ripiuk">
+              <a class="button is-primary is-inverted" href="https://github.com/ripiuk/github_issue_browser">
                 <span class="icon">
                   <i class="fa fa-github"></i>
                 </span>
@@ -44,11 +44,12 @@
 
   <div class="hero-body">
     <div class="container has-text-centered">
+        {%block image%}{%endblock%}
       <h1 class="title">
-        GitHub issue browser
+        {%block repo_name%}GitHub issue browser{% endblock %}
       </h1>
       <h2 class="subtitle">
-        Дефолтний Льоха
+        {%block repo_descr%}Дефолтний Льоха{% endblock %}
       </h2>
     </div>
   </div>

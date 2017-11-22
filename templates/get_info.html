@@ -1,34 +1,43 @@
 {% extends "base.html" %}
-{% block title%}Results{% endblock %}
+{% block title%}{{name}}{% endblock %}
 
 {% block li_choose_repo%}is-deactive ghost{%endblock%}
 {% block li_results%}is-active{%endblock%}
 
+{%block image%}
+<div class="level-item">
+  <figure class="image is-48x48" >
+      <img src={{avatar}} alt="Placeholder image">
+  </figure>
+</div>
+{%endblock%}
+{%block repo_name%}Repo name: {{name}}{% endblock %}
+{%block repo_descr%}{{description}}{% endblock %}
+
 {% block body %}
-GitHub Repository: {{github_link}}
 <nav class="level">
   <div class="level-item has-text-centered">
     <div>
-      <p class="heading">Tweets</p>
-      <p class="title">3,456</p>
+      <p class="heading">Size</p>
+      <p class="title">{{size}}</p>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
-      <p class="heading">Following</p>
-      <p class="title">123</p>
+      <p class="heading">Subscribers</p>
+      <p class="title">{{subscribers}}</p>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
-      <p class="heading">Followers</p>
-      <p class="title">456K</p>
+      <p class="heading">Forks</p>
+      <p class="title">{{forks}}</p>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
-      <p class="heading">Likes</p>
-      <p class="title">789</p>
+      <p class="heading">Stars</p>
+      <p class="title">{{stars}}</p>
     </div>
   </div>
 </nav>
