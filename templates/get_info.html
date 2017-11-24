@@ -1,44 +1,103 @@
 {% extends "base.html" %}
-{% block title%}{{name}}{% endblock %}
+{% block title%}{{MainInfo.name}}{% endblock %}
 
 {% block li_choose_repo%}is-deactive ghost{%endblock%}
 {% block li_results%}is-active{%endblock%}
 
 {%block image%}
 <div class="level-item">
-  <figure class="image is-48x48" >
-      <img src={{avatar}} alt="Placeholder image">
+  <figure class="image is-48x48">
+      <img src={{MainInfo.avatar}} alt="Repo owner">
   </figure>
 </div>
 {%endblock%}
-{%block repo_name%}Repo name: {{name}}{% endblock %}
-{%block repo_descr%}{{description}}{% endblock %}
+{%block repo_name%}Repo name: {{MainInfo.name}}{% endblock %}
+{%block repo_descr%}{{MainInfo.description}}{% endblock %}
 
 {% block body %}
-<nav class="level">
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading">Size</p>
-      <p class="title">{{size}}</p>
+<div class="box">
+    <nav class="level">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Size</p>
+          <p class="title">{{MainInfo.size}}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Subscribers</p>
+          <p class="title">{{MainInfo.subscribers}}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Forks</p>
+          <p class="title">{{MainInfo.forks}}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Stars</p>
+          <p class="title">{{MainInfo.stars}}</p>
+        </div>
+      </div>
+    </nav>
+</div>
+
+<div class="box media-content">
+    <div class="container has-text-centered">
+        <p class="title">Choose labels:</p>
+        <div class="columns is-multiline">
+
+            {% for label in Labels%}
+            <div class="tags has-addons" style="margin:5px;margin-left: auto;margin-right: auto;" onclick="hideShowOk(this)">
+                <span class="tag" style="background-color: #ffffff;border-width: 3px;;border-color: #{{label.color}};border-style: solid;" onmouseover="this.style.opacity='0.5';" onmouseout="this.style.opacity='1';">
+                    <p>{{label.name}}</p>
+                </span>
+                <div class="tag is-primary" style="display:none;">
+                    <span class="icon">
+                        <i class="fa fa-check"></i>
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <a class="button is-primary">Submit</a>
     </div>
-  </div>
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading">Subscribers</p>
-      <p class="title">{{subscribers}}</p>
-    </div>
-  </div>
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading">Forks</p>
-      <p class="title">{{forks}}</p>
-    </div>
-  </div>
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading">Stars</p>
-      <p class="title">{{stars}}</p>
-    </div>
-  </div>
-</nav>
+</div>
+
+<script type="text/javascript">
+function showResults(){
+    var blinks=document.getElementsByClassName('tag');
+    for (var i=0,blinksCount=blinks.length;i<blinksCount;i++) {
+        var rgb = blinks[i].style.backgroundColor.replace('rgb(', '').replace(')','' ).split(',').map(Number);
+        var o = Math.round(((rgb[0] * 299) + (rgb[1] * 587) + (rgb[2] * 114)) /1000);
+        if(o > 125) {
+          blinks[i].style.color = 'black';
+        } else {
+          blinks[i].style.color = 'white';
+        }
+    }
+}
+function toggleTagClass(div) {
+  var className = div.getAttribute("class");
+  if(className=="tag is-danger") {
+    div.className = "tag is-success";
+  }
+  else{
+    div.className = "tag is-danger";
+  }
+}
+document.onload = showResults()
+
+function hideShowOk(div) {
+div = div.children[1]
+    if (div.style.display === "none") {
+        div.style.display = "block";
+    } else {
+        div.style.display = "none";
+    }
+}
+document.onload = showResults()
+</script>
 {% endblock %}

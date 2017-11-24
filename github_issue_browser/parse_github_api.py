@@ -1,23 +1,24 @@
-import aiohttp
 from yarl import URL
 import json
 
+import aiohttp
 
-URL_MAIN_INFO = 'https://api.github.com/repos'
+
+URL_API = 'https://api.github.com/repos'
 
 
-async def get_repo_info(repo_url: str) -> dict:
+async def get_repo_main_info(repo_url: str, storage: dict):
     # Prepare the url
+    # TODO: what if url is bad
     repo_url = URL(repo_url)
     user_and_repo = repo_url.path
-    api_repo_url = URL_MAIN_INFO+user_and_repo
+    api_repo_url = URL_API + user_and_repo
 
     # Get a response
-    session = aiohttp.ClientSession()
-    async with session.get(url=api_repo_url) as resp:
-        response_json = await resp.text()
-        response_body = json.loads(response_json)
-    await session.close()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=api_repo_url) as resp:
+            response_json = await resp.text()
+            response_body = json.loads(response_json)
 
     # Parse a response
     result = dict(
@@ -32,4 +33,18 @@ async def get_repo_info(repo_url: str) -> dict:
         forks=response_body.get('forks_count'),
         stars=response_body.get('stargazers_count')
     )
-    return result
+    storage['MainInfo'] = result
+
+
+async def get_repo_labels(repo_url: str, storage: dict):
+    repo_url = URL(repo_url)
+    user_and_repo = repo_url.path
+    api_repo_url = URL_API + user_and_repo + '/labels?q=page=2&per_page=100'
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=api_repo_url) as resp:
+            response_json = await resp.text()
+            response_body = json.loads(response_json)
+
+    storage['Labels'] = response_body
+
